@@ -3,7 +3,7 @@ name: Teste de API
 on: [push]
 
 jobs:
-  verificar-api:
+  verificar-api-matrix:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,3 +31,9 @@ jobs:
           sleep 3
           curl -f http://localhost:8000/
           curl -f http://localhost:8000/somar/10/20
+  verificar-api:
+    runs-on: ubuntu-latest
+    needs: verificar-api-matrix
+    steps:
+      - name: Status de aprovação
+        run: echo "Todos os testes da matriz foram concluídos com sucesso."
